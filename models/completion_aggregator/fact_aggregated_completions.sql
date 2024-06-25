@@ -11,7 +11,10 @@ with
                 splitByString('/course/', object_id)[-1],
                 splitByString('/xblock/', object_id)[-1]
             ) as entity_id,
-            cast(progress_percent as Float) / 100 as scaled_progress
+            cast(progress_percent as Float) / 100 as scaled_progress,
+            row_number() over (
+                partition by org, entity_id, actor_id order by scaled_progress desc
+            ) as rn
         from {{ ref("aggregated_completion_events") }}
     )
 
@@ -59,3 +62,4 @@ left join
 left outer join
     {{ ref("dim_user_pii") }} users
     on toUUID(completions.actor_id) = users.external_user_id
+where rn = 1
