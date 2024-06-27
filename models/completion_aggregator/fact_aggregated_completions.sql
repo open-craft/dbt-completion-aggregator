@@ -29,6 +29,7 @@ select
     if(
         blocks.block_name != '', blocks.display_name_with_location, null
     ) as entity_name_with_location,
+    blocks.display_name_with_location as section_subsection_name,
     completions.actor_id as actor_id,
     cast(completions.scaled_progress as Float) as scaled_progress,
     case

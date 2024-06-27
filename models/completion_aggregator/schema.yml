@@ -29,6 +29,9 @@ models:
       - name: entity_name_with_location
         data_type: Nullable(String)
         description: "The entity's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
+      - name: section_subsection_name
+        data_type: Nullable(String)
+        description: "The name of the section this subsection belongs to, with section_number prepended"
       - name: actor_id
         data_type: String
         description: "The xAPI actor identifier"
